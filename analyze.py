@@ -24,9 +24,7 @@ class Analyzer():
         end_range = process_new + len(self.all_json)
         if end_range > len(self.data):
             end_range = len(self.data)
-        print(start, end_range)
         for i in range(start, end_range):
-            print("i", i)
             r = self.process_post_request(self.data[i])
             self.all_json[self.data[i]] = r
             self.process(r)
@@ -76,10 +74,7 @@ class Analyzer():
 
 if __name__ == "__main__":
     analyzer = Analyzer()
-    print((analyzer.data))
     analyzer.collect_data(2000)
-    print(analyzer.get_recommended())
-    print(len(analyzer.all_json))
     with open('output/data.json', 'w') as outfile:
         for k in analyzer.all_json:
             json.dump(analyzer.all_json[k], outfile)
