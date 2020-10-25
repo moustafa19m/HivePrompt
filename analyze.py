@@ -93,7 +93,7 @@ class Analyzer():
             w, h = tools.get_width_and_height(poly['vertices'])
             area = tools.PolygonArea(w, h)
             corners = tools.convert_to_np(poly['vertices'])
-            cRating = tools.CentralityRating(width, height, area, corners)
+            cRating = tools.CentralityRating(width, height, w, h, corners)
             tools.add_to_map(self.mapping, logo, [calrity, area, cRating, num_logos])
             self.set_maxes(area, num_logos)
 
@@ -187,10 +187,10 @@ class Analyzer():
     # returns: None
     def calculate_rating(self):
         """
-        - frequency should have the highest weight                 35%
-        - area should be the seond highest rating                  30%
-        - clarity comes third                                      20%
-        - centratlity gets weighed more the more polys there are   15%
+        - frequency should have the highest weight                 30%
+        - area should be the seond highest rating                  25%
+        - clarity comes third                                      25%
+        - centratlity gets weighed more the more polys there are   20%
         """
         rating = {}
         for logo in self.stats.keys():
@@ -202,9 +202,10 @@ class Analyzer():
             cRating_mean = self.stats[logo][5]
             cRating_std = self.stats[logo][6]
             num_shared_logos = self.stats[logo][7]
-            rating[logo] = 0.35*frequency + 0.3*area_mean*(1-area_std) + 0.2*clarity_mean*(1-clarity_std) + 0.15*(cRating_mean*num_shared_logos)
+            rating[logo] = 0.3*frequency + 0.25*area_mean*(1-area_std) + 0.25*clarity_mean*(1-clarity_std) + 0.2*(cRating_mean*num_shared_logos)
         values = []
         labels = []
+        print(rating)
         for key in sorted(rating, key=rating.get, reverse=True)[:10]:
             values.append(rating[key])
             labels.append(key)

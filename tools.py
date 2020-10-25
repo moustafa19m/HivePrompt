@@ -25,18 +25,15 @@ def PolygonArea(width, height):
 # inputs: width of the entire image, height of the entire image, area of the
 # logo, and corners that make up the rectnagular polygon of the logo
 # returns: double that represents the rating
-def CentralityRating(width, height, area, corners):
-    h_to_w = float(height/width)
-    w = float(math.sqrt(area/h_to_w))
-    h = float(area/w)
-    x_1, x_2, y_1, y_2  = float(width/2 - w/2), float(width/2 + w/2), float(height/2 - h/2), float(height/2 + h/2)
-    center = np.array([[x_1, y_1], [x_2, y_1], [x_2, y_2], [x_1, y_2]])
-    diff = abs(center - corners)
+def CentralityRating(width, height, l_width, l_height, corners):
+    x_1, x_2, y_1, y_2  = float(width/2 - l_width/2), float(width/2 + l_width/2), float(height/2 - l_height/2), float(height/2 + l_height/2)
+    centers = np.array([[x_1, y_1], [x_2, y_1], [x_2, y_2], [x_1, y_2]])
+    diff = abs(centers - corners)
     xmax, ymax = diff.max(axis=0)
     xmax = xmax/width
     ymax = ymax/height
     dislocation = math.sqrt(xmax*xmax + ymax*ymax)
-    return dislocation
+    return 1- dislocation
 
 
 ##############################################################
