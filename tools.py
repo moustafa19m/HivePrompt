@@ -22,8 +22,8 @@ def PolygonArea(width, height):
 # This function calculates a rating that determines how far off-center a logo
 # is located. The rating is based on diagonal dislocation.
 #
-# inputs: width of the entire image, height of the entire image, area of the
-# logo, and corners that make up the rectnagular polygon of the logo
+# inputs: width of the entire image, height of the entire image, width of the
+# logo, height of the logo, and corners that make up the rectnagular polygon of the logo
 # returns: double that represents the rating
 def CentralityRating(width, height, l_width, l_height, corners):
     x_1, x_2, y_1, y_2  = float(width/2 - l_width/2), float(width/2 + l_width/2), float(height/2 - l_height/2), float(height/2 + l_height/2)
